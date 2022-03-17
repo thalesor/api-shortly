@@ -40,12 +40,12 @@ export async function getUrl(req, res) {
 export async function deleteUrl(req, res)
 {
 	const { id } = req.params;
-	const result = await db.query("SELECT * FROM urls WHERE id=$1", [id]);
+	const result = await connection.query("SELECT * FROM urls WHERE id=$1", [id]);
 
         if( result?.rows[0].userId !== res.locals.user.id)
           return res.sendStatus(401);
             
-	      await db.query(`DELETE FROM urls WHERE id=$1`, [id]);
+	      await connection.query(`DELETE FROM urls WHERE id=$1`, [id]);
         res.sendStatus(204);
 		return;	
 }
