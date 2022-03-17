@@ -1,0 +1,20 @@
+CREATE TABLE users (
+	id SERIAL PRIMARY KEY,
+	name TEXT NOT NULL,
+	email TEXT NOT NULL UNIQUE,
+	password TEXT NOT NULL
+);
+
+CREATE TABLE urls (
+	id SERIAL PRIMARY KEY,
+	"userId" INTEGER NOT NULL REFERENCES users(id),
+	"shortUrl" TEXT NOT NULL,
+	url TEXT NOT NULL,
+	views INTEGER DEFAULT 0
+);
+
+CREATE TABLE sessions (
+   id SERIAL PRIMARY KEY,
+   token TEXT NOT NULL UNIQUE,
+   "userId" INTEGER NOT NULL REFERENCES users(id)
+);
